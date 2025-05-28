@@ -11,19 +11,25 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/joi": "^17.2.3",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/mongoose": "^5.11.97",
+    "bcrypt": "^6.0.0",
     "dotenv": "^16.5.0",
-    "express": "^5.1.0",
+    "express": "^4.19.2",
+    "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.15.1",
+    "node-cron": "^4.0.7",
     "nodemon": "^3.1.10",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "@types/express": "^5.0.2",
+    "@types/bcrypt": "^5.0.2",
+    "@types/express": "^4.17.21",
     "@types/node": "^22.15.21",
     "@types/uuid": "^10.0.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
 }
