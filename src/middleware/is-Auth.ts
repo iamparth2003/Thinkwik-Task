@@ -21,14 +21,17 @@ export const authMiddleware = async (
     if (!decodedToken) {
       return res.status(400).json({ message: "User not found." });
     }
+    console.log(decodedToken);
+    
     const user = await User.findOne({
-      userId: decodedToken.id,
+      id: decodedToken.id,
     });
 
     if (!user) {
-      return res.status(400).json({ message: "User not found." });
+      return res.status(400).json({ message: "User not found in DB." });
     }
     req.user = user;
+
     return next();
   } catch (err) {
     console.error(err);

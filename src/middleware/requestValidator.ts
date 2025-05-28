@@ -7,10 +7,9 @@ export const validateRequest = (schema: ObjectSchema) => {
 
     const validate = schema.validate(data);
     if (validate.error) {
-     return res
+      return res
         .status(400)
         .send({ message: validate?.error?.message || "Validation error" });
-      ;
     }
     req.validatedData = validate.value;
     return next();

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/app.ts"
+    "dev": "tsx src/app.ts"
   },
   "keywords": [],
   "author": "",
@@ -19,9 +19,11 @@
     "express": "^4.19.2",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
+    "moment": "^2.30.1",
     "mongoose": "^8.15.1",
     "node-cron": "^4.0.7",
     "nodemon": "^3.1.10",
+    "tsx": "^4.19.4",
     "uuid": "^11.1.0"
   },
   "devDependencies": {

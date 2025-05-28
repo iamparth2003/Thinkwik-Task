@@ -2,6 +2,7 @@ import express from "express";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRouter from "./routes/user.route";
+import todoRouter from "./routes/todo.route";
 dotenv.config();
 
 const app = express();
@@ -11,7 +12,9 @@ app.use(express.json());
 app.get("/", (_req, res) => {
   res.send("Server is running...");
 });
+
 app.use("/user", userRouter);
+app.use("/todo", todoRouter);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
