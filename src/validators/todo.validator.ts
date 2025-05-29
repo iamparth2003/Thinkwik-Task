@@ -25,6 +25,9 @@ export const updateTodoSchema = Joi.object({
   description: Joi.string().optional().messages({
     "string.base": "Description must be a string",
   }),
+  todoId: Joi.string().required().messages({
+    "any.required": "Todo ID is required",
+  }),
   dueDate: Joi.string()
     .pattern(/^\d{4}-\d{2}-\d{2}$/)
     .optional()
@@ -33,8 +36,4 @@ export const updateTodoSchema = Joi.object({
     }),
 }).min(1);
 
-export const todoIdParamSchema = Joi.object({
-  id: Joi.string().required().messages({
-    "any.required": "Todo ID is required",
-  }),
-});
+export const todoIdParamSchema = Joi.object({});

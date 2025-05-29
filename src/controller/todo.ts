@@ -52,6 +52,13 @@ export const getTodoItems = async (req: Request, res: Response) => {
     return res.status(200).json({
       message: "Todo items retrieved successfully.",
       todoItems,
+      pagination: {
+        currentPage: page,
+        totalItems: await Todo.countDocuments({ user: user?.id }),
+        totalPages: Math.ceil(
+          (await Todo.countDocuments({ user: user?.id })) / limit
+        ),
+      },
     });
   } catch (err) {
     console.log("Error:", err);
@@ -61,10 +68,10 @@ export const getTodoItems = async (req: Request, res: Response) => {
 
 export const getTodoItemById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.validatedData as { id: string };
+    const { todoId } = req.validatedData as { todoId: string };
     const user = req.user;
 
-    const item = await Todo.findOne({ id: id, user: user?.id });
+    const item = await Todo.findOne({ id: todoId, user: user?.id });
     if (!item) {
       return res.status(404).json({ message: "Todo item not found." });
     }
@@ -81,9 +88,21 @@ export const getTodoItemById = async (req: Request, res: Response) => {
 
 export const updateTodoItem = async (req: Request, res: Response) => {
   try {
-    const { title, description, dueDate } = req.body;
-    const { id } = req.params;
+    const { todoId, title, description, dueDate } = req.validatedData as {
+      todoId: string;
+      title?: string;
+      description?: string;
+      dueDate?: string;
+    };
     const user = req.user;
+
+    if (!todoId) {
+      return res.status(400).json({ message: "Todo ID is required." });
+    }
+    const todoItem = await Todo.findOne({ id: todoId, user: user?.id });
+    if (!todoItem) {
+      return res.status(404).json({ message: "Todo item not found." });
+    }
 
     if (dueDate) {
       const dueDateMoment = moment(dueDate).startOf("day");
@@ -95,19 +114,15 @@ export const updateTodoItem = async (req: Request, res: Response) => {
       }
     }
 
-    const updatedItem = await Todo.findOneAndUpdate(
-      { id: id, user: user?.id },
-      { title, description, dueDate: dueDate },
-      { new: true }
-    );
+    if (title !== undefined) todoItem.title = title;
+    if (description !== undefined) todoItem.description = description;
+    if (dueDate !== undefined) todoItem.dueDate = new Date(dueDate);
 
-    if (!updatedItem) {
-      return res.status(404).json({ message: "Todo item not found." });
-    }
+    await todoItem.save();
 
     return res.status(200).json({
       message: "Todo item updated successfully.",
-      updatedItem,
+      updatedItem: todoItem,
     });
   } catch (err) {
     console.log("Error:", err);
@@ -117,10 +132,13 @@ export const updateTodoItem = async (req: Request, res: Response) => {
 
 export const deleteTodoItem = async (req: Request, res: Response) => {
   try {
-    const { id } = req.validatedData as { id: string };
+    const { todoId } = req.validatedData as { todoId: string };
     const user = req.user;
 
-    const deletedItem = await Todo.findOneAndDelete({ id: id, user: user?.id });
+    const deletedItem = await Todo.findOneAndDelete({
+      id: todoId,
+      user: user?.id,
+    });
     if (!deletedItem) {
       return res.status(404).json({ message: "Todo item not found." });
     }
