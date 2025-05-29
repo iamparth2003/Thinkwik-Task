@@ -20,7 +20,7 @@ export async function signup(req: Request, res: Response) {
 
     const user = await User.create({ email, password: hashedPassword });
     const token = jwt.sign(
-      { email, password: hashedPassword },
+      { id: user.id, email, password: hashedPassword },
       process.env.SECRET_KEY as string,
       {
         expiresIn: "24h",

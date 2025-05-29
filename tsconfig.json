@@ -1,42 +1,15 @@
 {
   "compilerOptions": {
-    /* Base Options: */
+    "target": "es6",
+    "module": "commonjs",
+    "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "target": "es2022",
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "moduleDetection": "force",
-    /* Strictness */
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    /* If transpiling with TypeScript: */
-    "moduleResolution": "NodeNext",
-    "module": "NodeNext",
-    "outDir": "dist",
-    "sourceMap": true,
-    /* If your code doesn't run in the DOM: */
-    "lib": ["es2022"],
-    "rootDir": "./src",
-    "typeRoots": [],
-    "types": [],
     "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
-    "noImplicitThis": true,
-    "useUnknownInCatchVariables": true,
-    "alwaysStrict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "exactOptionalPropertyTypes": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "allowUnusedLabels": true,
-    "allowUnreachableCode": true
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   },
-  "exclude": ["node_modules", "scripts", "dist", "ecosystem.config.js", "notifyOnSlack.js", "config.js", "test.ts", "temp.js", "ecosystem.config.next.js", "tmp"]
+  "exclude": ["node_modules"]
 }
+

@@ -3,6 +3,7 @@ import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRouter from "./routes/user.route";
 import todoRouter from "./routes/todo.route";
+import { scheduleExpiredTodoJob } from "./cron/expireTodoItem";
 dotenv.config();
 
 const app = express();
@@ -27,6 +28,7 @@ mongoose
   .connect(mongodburi)
   .then(() => {
     console.log("Connected to database.....");
+    // scheduleExpiredTodoJob();
   })
   .catch((err) => {
     console.error(err);

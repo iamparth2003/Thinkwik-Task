@@ -36,4 +36,8 @@ export const updateTodoSchema = Joi.object({
     }),
 }).min(1);
 
+export const getTodosQuerySchema = Joi.object({
+  page: Joi.number().integer().min(1).optional().default(1),
+});
+
 export const todoIdParamSchema = Joi.object({});

@@ -40,7 +40,7 @@ export const createTodoItem = async (req: Request, res: Response) => {
 export const getTodoItems = async (req: Request, res: Response) => {
   try {
     const user = req.user;
-    const page = Number(req.query.page) || 1;
+    const { page = 1 } = req.validatedData as { page?: number };
     const limit = 5;
     const skip = (page - 1) * limit;
 
